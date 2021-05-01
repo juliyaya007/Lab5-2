@@ -5,6 +5,45 @@ const img = new Image(); // used to load image from <input> and draw to canvas
 // Fires whenever the img object loads a new image (such as with img.src =)
 img.addEventListener('load', () => {
   // TODO
+  // clear the canvas context
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  // toggle the relevant buttons (submit, clear, and read text buttons) by disabling or enabling them as needed
+  var x = document.getElementById("submit");
+  if (x.disabled == false) {
+    x.disabled = true;
+  } 
+  else {
+    x.disabled == false;
+  }
+
+  var y = document.getElementById("reset");
+  if (y.disabled == false) {
+    y.disabled = true;
+  } 
+  else {
+    y.disabled == false;
+  }
+
+  var z = document.getElementById("button");
+  if (z.disabled == false) {
+    z.disabled = true;
+  } 
+  else {
+    z.disabled == false;
+  }
+
+  // fill the canvas context with black to add borders on non-square images
+  const canvas = document.getElementById('user-image');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'black';
+  ctx.fillRect(10, 10, 150, 100);
+
+  // draw the uploaded image onto the canvas with the correct width, height,
+  // leftmost coordinate (startX), and topmost coordinate (startY) using 
+  // generated dimensions from the given function getDimensions
+  var img = document.getElementById("image-input");
+  ctx.drawImage(img, 10, 10);
 
   // Some helpful tips:
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
@@ -12,6 +51,25 @@ img.addEventListener('load', () => {
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
 });
 
+const selectElement = document.getElementById('image-input');
+
+selectElement.addEventListener('change', (event) => {
+  var reader  = new FileReader(); 
+  var canvas = document.getElementById('user-image');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'black'; 
+  reader.readAsDataURL(file);
+  reader.onloadend = function (e) {
+    var img = new Image();
+    img.src = event.target.result;
+    img.onload = function(event) {
+      ctx.drawImage(img,0,0);
+  }
+  }
+  
+});
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
  * dimensions of the image so that it fits perfectly into the Canvas and maintains aspect ratio
