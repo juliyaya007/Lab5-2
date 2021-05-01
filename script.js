@@ -1,4 +1,8 @@
 // script.js
+var script = document.createElement('script');
+script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
 
 const img = new Image(); // used to load image from <input> and draw to canvas
 
@@ -6,45 +10,26 @@ const img = new Image(); // used to load image from <input> and draw to canvas
 img.addEventListener('load', () => {
   // TODO
   // clear the canvas context
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
+  console.log("triggered!");
   // toggle the relevant buttons (submit, clear, and read text buttons) by disabling or enabling them as needed
   var x = document.getElementById("submit");
-  if (x.disabled == false) {
-    x.disabled = true;
-  } 
-  else {
-    x.disabled == false;
-  }
-
+    x.disabled = false;
   var y = document.getElementById("reset");
-  if (y.disabled == false) {
-    y.disabled = true;
-  } 
-  else {
-    y.disabled == false;
-  }
-
+    y.disabled = false;
   var z = document.getElementById("button");
-  if (z.disabled == false) {
-    z.disabled = true;
-  } 
-  else {
-    z.disabled == false;
-  }
-
+    z.disabled = false;
   // fill the canvas context with black to add borders on non-square images
   const canvas = document.getElementById('user-image');
   const ctx = canvas.getContext('2d');
   ctx.fillStyle = 'black';
-  ctx.fillRect(10, 10, 150, 100);
-
+  var meme = document.getElementById("image-input");
+  var result = getDimmensions(canvas.width, canvas.height, meme.width, meme.height);
+  ctx.fillRect(result.startX, result.startY, result.width, result.height);
   // draw the uploaded image onto the canvas with the correct width, height,
   // leftmost coordinate (startX), and topmost coordinate (startY) using 
   // generated dimensions from the given function getDimensions
-  var img = document.getElementById("image-input");
-  ctx.drawImage(img, 10, 10);
-
+  ctx.drawImage(meme, result.startX, result.startY, result.width, result.height);
+  document.getElementById("generate-meme").reset();
   // Some helpful tips:
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
   // - Clear the form when a new image is selected
@@ -70,6 +55,24 @@ selectElement.addEventListener('change', (event) => {
   }
   
 });
+
+document.getElementById('generate-meme').addEventListener('submit', (event) => {
+  console.log("generate text");
+  var top = document.getElementById("text-top");
+  var bottom = document.getElementById("text-bottom");
+  var canvas = document.getElementById("user-image");
+  var ctx = canvas.getContext("2d");
+  ctx.font = "30px Arial";
+  ctx.fillText(top, 10, 50);
+  ctx.fillText(bottom, 10, 250);
+});
+
+document.querySelector("button[type='reset']").addEventListener('click', (event) => {
+  document.getElementById("image-input").style.display='none';
+  document.getElementById("text-top").style.display='none';
+  document.getElementById("text-bottom").style.display='none';
+});
+
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
  * dimensions of the image so that it fits perfectly into the Canvas and maintains aspect ratio
