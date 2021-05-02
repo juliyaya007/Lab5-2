@@ -26,9 +26,9 @@ img.addEventListener('load', () => {
     z.disabled = false;
   // fill the canvas context with black to add borders on non-square images
   
-  ctx.fillStyle = 'black';
-  const result = getDimmensions(canvas.width, canvas.height, img.width, img.height);
-  ctx.fillRect(result.startX, result.startY, result.width, result.height);
+  //ctx.fillStyle = 'black';
+  var result = getDimmensions(canvas.width, canvas.height, img.width, img.height);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   // draw the uploaded image onto the canvas with the correct width, height,
   // leftmost coordinate (startX), and topmost coordinate (startY) using 
   // generated dimensions from the given function getDimensions
@@ -59,9 +59,13 @@ document.getElementById('generate-meme').addEventListener('submit', (event) => {
   event.preventDefault();
   let top = document.getElementById("text-top").value;
   let bottom = document.getElementById("text-bottom").value;
-  ctx.font = "30px Arial";
-  ctx.fillText(top, 10, 50);
-  ctx.fillText(bottom, 10, 250);
+  ctx.font = "40px Arial";
+  ctx.textAlign = "center";
+  ctx.strokeStyle = 'white';
+  ctx.fillText(top, canvas.width/2, 50);
+  ctx.strokeText(top, canvas.width/2, 50);
+  ctx.fillText(bottom, canvas.width/2, 350);
+  ctx.strokeText(bottom, canvas.width/2, 350);
 });
 
 document.querySelector("button[type='reset']").addEventListener('click', (event) => {
