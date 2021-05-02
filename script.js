@@ -7,7 +7,7 @@ document.getElementsByTagName('head')[0].appendChild(script);
 const img = new Image(); // used to load image from <input> and draw to canvas
 let canvas = document.getElementById('user-image');
 let ctx = canvas.getContext('2d');
-let read = document.getElementById('button');
+let read = document.querySelector("button[type='button']");
 var voiceSelect = document.getElementById('voice-selection');
 
 // Fires whenever the img object loads a new image (such as with img.src =)
@@ -18,11 +18,11 @@ img.addEventListener('load', () => {
   console.log("triggered!");
 
   // toggle the relevant buttons (submit, clear, and read text buttons) by disabling or enabling them as needed
-  var x = document.getElementById("submit");
+  var x = document.querySelector("button[type='submit']");
     x.disabled = false;
-  var y = document.getElementById("reset");
+  var y = document.querySelector("button[type='reset']");
     y.disabled = false;
-  var z = document.getElementById("button");
+  var z = document.querySelector("button[type='button']");
     z.disabled = false;
   // fill the canvas context with black to add borders on non-square images
   
@@ -69,9 +69,9 @@ document.getElementById('generate-meme').addEventListener('submit', (event) => {
 });
 
 document.querySelector("button[type='reset']").addEventListener('click', (event) => {
-  document.getElementById("image-input").style.display='none';
-  document.getElementById("text-top").style.display='none';
-  document.getElementById("text-bottom").style.display='none';
+  document.getElementById("image-input").innerHTML = '';
+  document.getElementById("text-top").innerHTML='';
+  document.getElementById("text-bottom").innerHTML='';
 });
 
 //text to speech
@@ -99,7 +99,7 @@ if (synth.onvoiceschanged !== undefined) {
   synth.onvoiceschanged = populateVoiceList;
 }
 let volume = document.getElementById('volume');
-let icon = document.getElementById('vol-icon');
+let icon = document.getElementsByTagName("IMG")[0];
 volume.addEventListener('change', ()=> 
 {
   if(volume.value == 0){
