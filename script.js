@@ -69,9 +69,10 @@ document.getElementById('generate-meme').addEventListener('submit', (event) => {
 });
 
 document.querySelector("button[type='reset']").addEventListener('click', (event) => {
-  document.getElementById("image-input").innerHTML = '';
-  document.getElementById("text-top").innerHTML='';
-  document.getElementById("text-bottom").innerHTML='';
+  document.getElementById("user-image").display = none;
+  // document.getElementById("image-input").innerHTML = '';
+  // document.getElementById("text-top").innerHTML='';
+  // document.getElementById("text-bottom").innerHTML='';
 });
 
 //text to speech
