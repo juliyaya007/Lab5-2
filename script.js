@@ -9,6 +9,9 @@ let canvas = document.getElementById('user-image');
 let ctx = canvas.getContext('2d');
 let read = document.querySelector("button[type='button']");
 var voiceSelect = document.getElementById('voice-selection');
+var x = document.querySelector("button[type='submit']");
+var y = document.querySelector("button[type='reset']");
+var z = document.querySelector("button[type='button']");
 
 // Fires whenever the img object loads a new image (such as with img.src =)
 img.addEventListener('load', () => {
@@ -18,12 +21,9 @@ img.addEventListener('load', () => {
   console.log("triggered!");
 
   // toggle the relevant buttons (submit, clear, and read text buttons) by disabling or enabling them as needed
-  var x = document.querySelector("button[type='submit']");
+  
     x.disabled = false;
-  var y = document.querySelector("button[type='reset']");
-    y.disabled = false;
-  var z = document.querySelector("button[type='button']");
-    z.disabled = false;
+  
   // fill the canvas context with black to add borders on non-square images
   
   //ctx.fillStyle = 'black';
@@ -55,7 +55,13 @@ selectElement.addEventListener('change', (event) => {
 });
 
 document.getElementById('generate-meme').addEventListener('submit', (event) => {
-  console.log("generate text");
+  
+  x.disabled = true;
+  
+  y.disabled = false;
+  
+  z.disabled = false;
+ 
   event.preventDefault();
   let top = document.getElementById("text-top").value;
   let bottom = document.getElementById("text-bottom").value;
@@ -69,10 +75,11 @@ document.getElementById('generate-meme').addEventListener('submit', (event) => {
 });
 
 document.querySelector("button[type='reset']").addEventListener('click', (event) => {
-  document.getElementById("user-image").display = none;
-  // document.getElementById("image-input").innerHTML = '';
-  // document.getElementById("text-top").innerHTML='';
-  // document.getElementById("text-bottom").innerHTML='';
+  x.disabled = false;
+  
+  y.disabled = true;
+  z.disabled = true;
+  ctx.clearRect(0,0, canvas.width, canvas.height);
 });
 
 //text to speech
